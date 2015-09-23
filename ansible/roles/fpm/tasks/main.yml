@@ -1,0 +1,20 @@
+#- name: "Retrieve tarball"
+#  get_url: url={{package.url}} dest={{download_dir}} validate_certs=no sha256sum={{package.sha256}} force=no
+
+- name: "Unarchive tarball"
+  unarchive: src={{download_dir}}/{{package.filename}} dest={{build_dir}} copy=no
+
+- name: "Configure software"
+  shell: "./configure --prefix=/usr/local"
+  args:
+    chdir: "{{build_dir}}/{{package.archive_dir}}"
+
+- name: "Build software"
+  shell: "make"
+  args:
+    chdir: "{{build_dir}}/{{package.archive_dir}}"
+ 
+- name: "Install software in temporary directory"
+  shell: "make install DESTDIR={{temp_install_dir}}"
+  args:
+    chdir: "{{build_dir}}/{{package.archive_dir}}"

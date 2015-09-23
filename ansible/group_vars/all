@@ -1,0 +1,5 @@
+jenkins_user: jenkins-ci
+src_dir: /usr/local/src
+build_dir: "{{src_dir}}/builds"
+temp_install_dir: "/tmp/installdir"
+download_dir: "{{src_dir}}/downloads"

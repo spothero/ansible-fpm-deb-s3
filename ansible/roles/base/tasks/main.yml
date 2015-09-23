@@ -1,0 +1,16 @@
+---
+
+- name: "Wack old build directories"
+  file: path={{item}} state=absent
+  sudo: true
+  with_items:
+    - "{{ temp_install_dir }}"
+    - "{{ build_dir }}"
+
+- name: "Create build directories"
+  file: path={{item}} owner={{jenkins_user}} group={{jenkins_user}} state=directory
+  sudo: true
+  with_items:
+    - "{{ temp_install_dir }}"
+    - "{{ build_dir }}"
+
